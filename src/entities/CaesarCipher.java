@@ -82,5 +82,12 @@ public class CaesarCipher {
 		System.out.println("Text............: " + text);
 		System.out.println("Encrypted (key1): " + encriptUsingCaesarCipher(text, key1));
 		System.out.println("Encrypted (key1 e key2): " + encriptUsingCaesarCipher(text, key1, key2));
+		
+		System.out.println("=====================================================");
+		String path = "/tmp/file";
+		FileResource fr = new FileResource(path);
+		String message = fr.asString();
+		String encrypted = encriptUsingCaesarCipher(message, key1);
+		System.out.println("key is " + key1 + "\n" + encrypted);
 	}
 }
