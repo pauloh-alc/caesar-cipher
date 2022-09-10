@@ -7,11 +7,21 @@ public class CaesarCipher {
 	public static String encriptUsingCaesarCipher(String input, int key) {
 
 		String shiftedAlphabet = CaesarCipher.generateShiftedAlphabet(key);
-		StringBuilder encrypted = new StringBuilder(input.toUpperCase());
+		StringBuilder encrypted = new StringBuilder(input);
 		
 		for (int i = 0; i < encrypted.length(); i++) {
 			char ch = encrypted.charAt(i);
-			int idx = ALPHABET.indexOf(ch);
+			int idx;
+			
+			if (Character.isLowerCase(ch)) {
+				shiftedAlphabet = shiftedAlphabet.toLowerCase();
+				idx = ALPHABET.toLowerCase().indexOf(ch);
+			}
+			else { 
+				shiftedAlphabet = shiftedAlphabet.toUpperCase();
+				idx = ALPHABET.indexOf(ch);
+			}
+			
 			if (idx != -1) {
 				encrypted.setCharAt(i, shiftedAlphabet.charAt(idx));
 			}
@@ -25,14 +35,14 @@ public class CaesarCipher {
 	}
 
 	public static void main(String[] args) {
-		int key = 19;
+		int key = 3;
 
 		System.out.println("Alphabet........: " + ALPHABET);
 		System.out.println("Shifted Alphabet: " + generateShiftedAlphabet(key));
 		
 		System.out.println();
 		
-		String text = "Paulo Alencar vai para a guerra com Julio Cesar";
+		String text = "Paulo Henrique vai para guerra";
 		System.out.println("Text.....: " + text);
 		System.out.println("Encrypted: " + encriptUsingCaesarCipher(text, key));
 	}
