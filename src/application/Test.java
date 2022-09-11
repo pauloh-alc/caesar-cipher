@@ -46,5 +46,9 @@ public class Test {
 		System.out.println("=====================================================");
 		String output = c1.decrypt(encrypted);
 		System.out.println("Message: " + output);
+		
+		System.out.println("=====================================================");
+		output = c1.decode(encrypted, key1);
+		System.out.println("Message: " + output);
 	}
 }

@@ -123,4 +123,8 @@ public class CaesarCipher {
 	
 		return this.encriptUsingCaesarCipher(encrypted, dkey);
 	}
+	
+	public String decode(String encrypted, int key) {
+		return this.encriptUsingCaesarCipher(encrypted, ALPHABET.length() - key);
+	}
 }
