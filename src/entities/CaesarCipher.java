@@ -115,4 +115,12 @@ public class CaesarCipher {
 		}
 		return idx_larger;
 	}
+	
+	public String decrypt(String encrypted) {
+		int[] frequency = countFreqLetters(encrypted);
+		int idx_larger = indexHighestFrequency(frequency);
+		int dkey = ALPHABET.length() - idx_larger;
+	
+		return this.encriptUsingCaesarCipher(encrypted, dkey);
+	}
 }

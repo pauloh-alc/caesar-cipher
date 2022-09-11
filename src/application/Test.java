@@ -42,5 +42,9 @@ public class Test {
 		for (int i = 0; i < x.length; i++) {
 			System.out.println(c1.getALPHABET().charAt(i) + ": " + x[i]);
 		}
+		
+		System.out.println("=====================================================");
+		String output = c1.decrypt(encrypted);
+		System.out.println("Message: " + output);
 	}
 }
