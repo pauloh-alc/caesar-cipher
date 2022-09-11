@@ -103,4 +103,16 @@ public class CaesarCipher {
 		}
 		return counters;
 	}
+	
+	public int indexHighestFrequency(int[] frequency) {
+		int larger = frequency[0];
+		int idx_larger = 0;
+		for (int i = 1; i < frequency.length; i++) {
+			if (frequency[i] > larger) { 
+				larger = frequency[i];
+				idx_larger = i;
+			}
+		}
+		return idx_larger;
+	}
 }
