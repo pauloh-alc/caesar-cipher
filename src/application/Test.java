@@ -35,5 +35,12 @@ public class Test {
 		System.out.println("Human Decrypted Message: ");
 		encrypted = c1.encriptUsingCaesarCipher(text, key1);
 		c1.humanDecrypt(encrypted);
+		
+		System.out.println("=====================================================");
+		System.out.println("encrypeted: " + encrypted);
+		int[] x = c1.countFreqLetters(encrypted);
+		for (int i = 0; i < x.length; i++) {
+			System.out.println(c1.getALPHABET().charAt(i) + ": " + x[i]);
+		}
 	}
 }

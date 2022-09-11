@@ -89,4 +89,18 @@ public class CaesarCipher {
 			System.out.println("key " + key + ": " + output);
 		}
 	}
+	
+	public int[] countFreqLetters(String encrypted) {
+		
+		int[] counters = new int[ALPHABET.length()];
+		
+		for (int i = 0; i < encrypted.length(); i++) {
+			char ch = encrypted.charAt(i);
+			ch = Character.toUpperCase(ch);
+			int idx = ALPHABET.indexOf(ch);
+			if (idx != -1) 
+				counters[idx] += 1;
+		}
+		return counters;
+	}
 }
