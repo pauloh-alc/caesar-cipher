@@ -50,5 +50,9 @@ public class Test {
 		System.out.println("=====================================================");
 		output = c1.decode(encrypted, key1);
 		System.out.println("Message: " + output);
+		
+		System.out.println("=====================================================");
+		System.out.println(c1.halfOfString("Qbkm Zgis", 0));
+		System.out.println(c1.halfOfString("Qbkm Zgis", 1));
 	}
 }

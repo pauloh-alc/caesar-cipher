@@ -127,4 +127,12 @@ public class CaesarCipher {
 	public String decode(String encrypted, int key) {
 		return this.encriptUsingCaesarCipher(encrypted, ALPHABET.length() - key);
 	}
+		
+	public String halfOfString(String message, int start) {
+		String half = "";
+		for (int i = start; i < message.length(); i+=2) {
+			half = half + message.charAt(i);
+		}
+		return half;
+	}
 }
