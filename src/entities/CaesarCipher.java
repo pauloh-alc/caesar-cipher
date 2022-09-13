@@ -140,4 +140,16 @@ public class CaesarCipher {
 		}
 		return half;
 	}
+	
+	public int getKey(String s) {
+		int[] frequency = countFreqLetters(s);
+		int idx_larger = indexHighestFrequency(frequency);
+		int dkey = idx_larger - 4;
+		
+		if (idx_larger < 4) {
+			dkey = ALPHABET.length() - (4-idx_larger);
+		}
+		
+		return ALPHABET.length() - dkey;
+	}
 }
