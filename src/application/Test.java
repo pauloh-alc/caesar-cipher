@@ -19,7 +19,7 @@ public class Test {
 		
 		System.out.println();
 		
-		String text = "Paulo Alencar";
+		String text = "Encrypted";
 		System.out.println("Text............: " + text);
 		System.out.println("Encrypted (key1): " + c1.encriptUsingCaesarCipher(text, key1));
 		System.out.println("Encrypted (key1 e key2): " + c1.encriptUsingCaesarCipher(text, key1, key2));

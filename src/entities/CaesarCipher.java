@@ -119,7 +119,12 @@ public class CaesarCipher {
 	public String decrypt(String encrypted) {
 		int[] frequency = countFreqLetters(encrypted);
 		int idx_larger = indexHighestFrequency(frequency);
-		int dkey = ALPHABET.length() - idx_larger;
+		int dkey = idx_larger - 4;
+		if (idx_larger < 4) {
+			dkey = ALPHABET.length() - (4-idx_larger);
+		}
+		
+		dkey = ALPHABET.length() - dkey;
 	
 		return this.encriptUsingCaesarCipher(encrypted, dkey);
 	}
