@@ -51,7 +51,9 @@ public class CaesarCipher {
 	public void setKey2(int key2) {
 		this.key2 = key2;
 	}
-
+	
+	// Main Methods:
+	
 	public String encrypt(String input) {
 
 		StringBuilder encrypted = new StringBuilder(input);
@@ -106,9 +108,35 @@ public class CaesarCipher {
 		return encrypted.toString();
 	}
 	
-	private String generateShiftedAlphabet(int key) {
-		String shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
-		return shiftedAlphabet;
+	public String decrypt(String encrypted) {
+		int[] frequency = countFreqLetters(encrypted);
+		int idx_larger = indexHighestFrequency(frequency);
+		int dkey = idx_larger - 4;
+		if (idx_larger < 4) {
+			dkey = alphabet.length() - (4-idx_larger);
+		}
+		
+		dkey = alphabet.length() - dkey;
+		
+		this.shiftedAlphabet1 = generateShiftedAlphabet(dkey);
+		
+		return this.encrypt(encrypted);
+	}
+	
+	public String decryptTwoKeys(String encrypted) {
+		String half1 = halfOfString(encrypted, 0);
+		String half2 = halfOfString(encrypted, 1);
+		
+		int dkey1 = getKey(half1);
+		int dkey2 = getKey(half2);
+		
+		System.out.println("dkey1 = " + dkey1);
+		System.out.println("dkey2 = " + dkey2);
+		
+		this.shiftedAlphabet1 = generateShiftedAlphabet(dkey1);
+		this.shiftedAlphabet2 = generateShiftedAlphabet(dkey2);
+		
+		return this.encryptTwoKeys(encrypted);
 	}
 	
 	public void humanDecrypt(String encrypted) {
@@ -117,6 +145,18 @@ public class CaesarCipher {
 			String output = this.encrypt(encrypted);
 			System.out.println("key " + key + ": " + output);
 		}
+	}
+	
+	public String decode(String encrypted) {
+		this.shiftedAlphabet1 = generateShiftedAlphabet(alphabet.length() - this.key1); 
+		return this.encrypt(encrypted);
+	}
+	
+	// Helpers Methods
+	
+	private String generateShiftedAlphabet(int key) {
+		String shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0, key);
+		return shiftedAlphabet;
 	}
 	
 	private int[] countFreqLetters(String encrypted) {
@@ -144,26 +184,6 @@ public class CaesarCipher {
 		}
 		return idx_larger;
 	}
-	
-	public String decrypt(String encrypted) {
-		int[] frequency = countFreqLetters(encrypted);
-		int idx_larger = indexHighestFrequency(frequency);
-		int dkey = idx_larger - 4;
-		if (idx_larger < 4) {
-			dkey = alphabet.length() - (4-idx_larger);
-		}
-		
-		dkey = alphabet.length() - dkey;
-		
-		this.shiftedAlphabet1 = generateShiftedAlphabet(dkey);
-		
-		return this.encrypt(encrypted);
-	}
-	
-	public String decode(String encrypted) {
-		this.shiftedAlphabet1 = generateShiftedAlphabet(alphabet.length() - this.key1); 
-		return this.encrypt(encrypted);
-	}
 		
 	private String halfOfString(String message, int start) {
 		String half = "";
@@ -185,19 +205,4 @@ public class CaesarCipher {
 		return alphabet.length() - dkey;
 	}
 	
-	public String decryptTwoKeys(String encrypted) {
-		String half1 = halfOfString(encrypted, 0);
-		String half2 = halfOfString(encrypted, 1);
-		
-		int dkey1 = getKey(half1);
-		int dkey2 = getKey(half2);
-		
-		System.out.println("dkey1 = " + dkey1);
-		System.out.println("dkey2 = " + dkey2);
-		
-		this.shiftedAlphabet1 = generateShiftedAlphabet(dkey1);
-		this.shiftedAlphabet2 = generateShiftedAlphabet(dkey2);
-		
-		return this.encryptTwoKeys(encrypted);
-	}
 }
