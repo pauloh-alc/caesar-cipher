@@ -152,4 +152,17 @@ public class CaesarCipher {
 		
 		return ALPHABET.length() - dkey;
 	}
+	
+	public String decryptTwoKeys(String encrypted) {
+		String half1 = halfOfString(encrypted, 0);
+		String half2 = halfOfString(encrypted, 1);
+		
+		int dkey1 = getKey(half1);
+		int dkey2 = getKey(half2);
+		
+		System.out.println("dkey1 = " + dkey1);
+		System.out.println("dkey2 = " + dkey2);
+		
+		return this.encriptUsingCaesarCipher(encrypted, dkey1, dkey2);
+	}
 }

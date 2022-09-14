@@ -6,8 +6,8 @@ import entities.FileResource;
 public class Test {
 	
 	public static void main(String[] args) {
-		int key1 = 23;
-		int key2 = 17;
+		int key1 = 2;
+		int key2 = 20;
 		
 		CaesarCipher c1 = new CaesarCipher();
 
@@ -19,7 +19,7 @@ public class Test {
 		
 		System.out.println();
 		
-		String text = "Encrypted";
+		String text = "Just a test string with lots of eeeeeeeeeeeeeeeees";
 		System.out.println("Text............: " + text);
 		System.out.println("Encrypted (key1): " + c1.encriptUsingCaesarCipher(text, key1));
 		System.out.println("Encrypted (key1 e key2): " + c1.encriptUsingCaesarCipher(text, key1, key2));
@@ -54,5 +54,21 @@ public class Test {
 		System.out.println("=====================================================");
 		System.out.println(c1.halfOfString("Qbkm Zgis", 0));
 		System.out.println(c1.halfOfString("Qbkm Zgis", 1));
+		
+		System.out.println("=====================================================");
+		String s = c1.decryptTwoKeys(c1.encriptUsingCaesarCipher(text, key1, key2));
+		System.out.println(s);
+		
+		System.out.println("=====================================================");
+		System.out.println("The following phrase was encrypted with the two key: ");
+		s = c1.decryptTwoKeys("Akag tjw Xibhr awoa aoee xakex znxag xwko");
+		System.out.println(s);
+		
+		System.out.println("=====================================================");
+		System.out.println("Decrypt the encrypted file mysteryTwoKeysPractice.txt: ");
+		FileResource resource = new FileResource("../caesar-cipher/files/mysteryTwoKeysPractice.txt");
+		String mystery = c1.decryptTwoKeys(resource.asString());
+		System.out.println(mystery);
+	
 	}
 }
