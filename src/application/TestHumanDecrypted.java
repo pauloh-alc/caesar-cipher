@@ -10,7 +10,7 @@ public class TestHumanDecrypted {
 		CaesarCipher cipher1 = new CaesarCipher(key1);
 		System.out.println("Human Decrypted Message: ");
 		String encrypted = cipher1.encrypt(text);
-		cipher1.humanDecrypt(encrypted);
+		cipher1.humanDecryptOneKey(encrypted);
 	}
 
 }

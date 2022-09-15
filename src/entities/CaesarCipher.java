@@ -10,14 +10,14 @@ public class CaesarCipher {
 	
 	public CaesarCipher(int key1) {
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		shiftedAlphabet1 = generateShiftedAlphabet(key1);
 		this.key1 = key1;
+		shiftedAlphabet1 = generateShiftedAlphabet(key1);
 	}
 	
 	public CaesarCipher(int key1, int key2) {
 		this(key1);
-		shiftedAlphabet2 = generateShiftedAlphabet(key2);
 		this.key2 = key2;
+		shiftedAlphabet2 = generateShiftedAlphabet(key2);
 	}
 	
 	public String getShiftedAlphabet1() {
@@ -139,7 +139,7 @@ public class CaesarCipher {
 		return this.encryptTwoKeys(encrypted);
 	}
 	
-	public void humanDecrypt(String encrypted) {
+	public void humanDecryptOneKey(String encrypted) {
 		for (int key = 0; key < alphabet.length(); key++) {
 			this.shiftedAlphabet1 = generateShiftedAlphabet(key);
 			String output = this.encrypt(encrypted);
@@ -147,7 +147,7 @@ public class CaesarCipher {
 		}
 	}
 	
-	public String decode(String encrypted) {
+	public String decodeOneKey(String encrypted) {
 		this.shiftedAlphabet1 = generateShiftedAlphabet(alphabet.length() - this.key1); 
 		return this.encrypt(encrypted);
 	}
