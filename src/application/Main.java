@@ -1,6 +1,7 @@
 package application;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,20 +28,23 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		BorderPane border = new BorderPane();
+		GridPane grid = addGridPane();
+		HBox hbox = addHBox();
 		
-		border.setTop(addHBox());	
-		border.setCenter(addGridPane());
+		BorderPane border = new BorderPane();
+		border.setTop(hbox);	
+		border.setCenter(grid);
+		
+		setOnActionButtonEncrypt(grid); 
 		
 		Scene scene = new Scene(border, 550, 320);
-		
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Caesar Cipher");
 		primaryStage.show();
 	}
 	
-	public HBox addHBox () {
+	private HBox addHBox () {
 		
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(20, 14, 20, 14));
@@ -61,7 +65,7 @@ public class Main extends Application{
 		return hbox;
 	}
 	
-	public GridPane addGridPane () {
+	private GridPane addGridPane () {
 
 	    Text input = new Text("Input text");       
 	    Text output = new Text("Encrypted text"); 
@@ -110,4 +114,28 @@ public class Main extends Application{
 	    return gridPane;
 	}
 	
+	private static void setOnActionButtonEncrypt(GridPane grid) {
+		
+		TextField textFieldInput = (TextField) grid.getChildren().get(1);
+		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
+		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
+		TextField textFieldKey2 = (TextField) grid.getChildren().get(7);
+		Text msgError = (Text) grid.getChildren().get(10);
+		Button btnEncrypt = (Button) grid.getChildren().get(8);
+		
+		btnEncrypt.setOnAction((ActionEvent e) -> {
+		    
+	    	boolean onlyOneKey = ! textFieldKey1.getText().isEmpty() && textFieldKey2.getText().isEmpty();
+	    	boolean withTwoKey = ! textFieldKey1.getText().isEmpty() && ! textFieldKey2.getText().isEmpty();
+	    
+	    	if (onlyOneKey) {
+	    		System.out.println("chama método encrypt para 1 key");
+	    	}
+	    	else if (withTwoKey) {
+	    		System.out.println("chama método ecrypt para 2 keys");
+	    	}
+	    	else
+	    		System.out.println("mostra mensage, de error");
+		});
+	}
 }
