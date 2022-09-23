@@ -131,13 +131,17 @@ public class Main extends Application{
 	    
 	    	if (onlyOneKey) {
 	    		encrypt(textFieldInput, textFieldOutput, textFieldKey1);
+	    		clearMessageError(msgError);
 	    		System.out.println("chama método encrypt para 1 key");
 	    	}
 	    	else if (withTwoKey) {
 	    		System.out.println("chama método ecrypt para 2 keys");
+	    		clearMessageError(msgError);
 	    	}
-	    	else
+	    	else {
 	    		System.out.println("mostra mensage, de error");
+	    		printMessageError(msgError, "Key filders are empty!");
+	    	}
 		});
 	}
 	
@@ -151,4 +155,13 @@ public class Main extends Application{
 		
 		textOutput.setText(output);
 	}
+	
+	public static void printMessageError(Text msgError, String msg) {
+		msgError.setText(msg);
+	}
+	
+	public static void clearMessageError(Text msgError) {
+		msgError.setText(null);
+	}
+	
 }
