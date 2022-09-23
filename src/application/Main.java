@@ -1,5 +1,6 @@
 package application;
 
+import entities.CaesarCipher;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -129,6 +130,7 @@ public class Main extends Application{
 	    	boolean withTwoKey = ! textFieldKey1.getText().isEmpty() && ! textFieldKey2.getText().isEmpty();
 	    
 	    	if (onlyOneKey) {
+	    		encrypt(textFieldInput, textFieldOutput, textFieldKey1);
 	    		System.out.println("chama método encrypt para 1 key");
 	    	}
 	    	else if (withTwoKey) {
@@ -137,5 +139,16 @@ public class Main extends Application{
 	    	else
 	    		System.out.println("mostra mensage, de error");
 		});
+	}
+	
+	public static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) {
+		
+		String input = textInput.getText();
+		int key1 = Integer.parseInt(textKey1.getText());
+		
+		CaesarCipher cipher = new CaesarCipher(key1);
+		String output = cipher.encrypt(input);
+		
+		textOutput.setText(output);
 	}
 }
