@@ -1,7 +1,5 @@
 package application;
 
-import java.util.InputMismatchException;
-
 import entities.CaesarCipher;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -129,7 +127,6 @@ public class Main extends Application{
 		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
 		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
 		TextField textFieldKey2 = (TextField) grid.getChildren().get(7);
-		Text errorMsg = (Text) grid.getChildren().get(10);
 		Button btnEncrypt = (Button) grid.getChildren().get(8);
 		
 		btnEncrypt.setOnAction((ActionEvent e) -> {
@@ -153,25 +150,41 @@ public class Main extends Application{
 	    		}
 	    	}
 	    	else if (withTwoKey) {
-	    		System.out.println("chama método ecrypt para 2 keys");
-	    		btnEncrypt.setText("Encrypted");
-	    		clearErrorMessage(errorMsg);
+	    		try {
+		    		encrypt(textFieldInput, textFieldOutput, textFieldKey1, textFieldKey2);
+	    			printSuccessMessage("Successfully encrypted with two keys!");
+	    		} catch (NumberFormatException error) {
+	    			printErrorMessage("key numbers must be integers. " + error.getMessage());
+	    		}
 	    	}
 	    	else {
-	    		System.out.println("mostra mensage, de error");
 	    		printErrorMessage("Hey! key filders are empty!");
 	    	}
 		});
 	}
 	
-	public static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) 
+	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) 
 			throws NumberFormatException {
 		
 		String input = textInput.getText();
 			
 		int key1 = Integer.parseInt(textKey1.getText());
+	
 		CaesarCipher cipher = new CaesarCipher(key1);
 		String output = cipher.encrypt(input);
+		textOutput.setText(output);
+	}
+	
+	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1, TextField textKey2) 
+			throws NumberFormatException {
+		
+		String input = textInput.getText();
+			
+		int key1 = Integer.parseInt(textKey1.getText());
+		int key2 = Integer.parseInt(textKey2.getText());
+	
+		CaesarCipher cipher = new CaesarCipher(key1, key2);
+		String output = cipher.encryptTwoKeys(input);
 		textOutput.setText(output);
 	}
 	
@@ -183,10 +196,6 @@ public class Main extends Application{
 	private static void printErrorMessage(String msg) {
 		errorMsg.setText(msg);
 		successMsg.setText(null);
-	}
-	
-	private static void clearErrorMessage(Text errorMsg) {
-		errorMsg.setText(null);
 	}
 	
 }
