@@ -1,5 +1,7 @@
 package application;
 
+import java.util.InputMismatchException;
+
 import entities.CaesarCipher;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -21,7 +23,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-
+	
+	private static Text errorMsg = new Text();
+	private static Text successMsg = new Text();
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -108,9 +113,12 @@ public class Main extends Application{
 	    gridPane.add(buttonEncrypt, 0, 4); 
 	    gridPane.add(buttonDecrypt, 1, 4);  
 	    
-	    Text msgError = new Text();
-	    msgError.setFill(Color.web("#ec2241"));
-	    gridPane.add(msgError, 1, 5);  
+	    
+	    errorMsg.setFill(Color.web("#ec2241"));
+	    gridPane.add(errorMsg, 1, 5); 
+	    
+	    successMsg.setFill(Color.web("#39e225"));
+	    gridPane.add(successMsg, 1, 5);
 	    
 	    return gridPane;
 	}
@@ -121,47 +129,64 @@ public class Main extends Application{
 		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
 		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
 		TextField textFieldKey2 = (TextField) grid.getChildren().get(7);
-		Text msgError = (Text) grid.getChildren().get(10);
+		Text errorMsg = (Text) grid.getChildren().get(10);
 		Button btnEncrypt = (Button) grid.getChildren().get(8);
 		
 		btnEncrypt.setOnAction((ActionEvent e) -> {
 		    
 	    	boolean onlyOneKey = ! textFieldKey1.getText().isEmpty() && textFieldKey2.getText().isEmpty();
 	    	boolean withTwoKey = ! textFieldKey1.getText().isEmpty() && ! textFieldKey2.getText().isEmpty();
-	    
+	    	boolean isEmptyEntry = textFieldInput.getText().isEmpty(); 
+	    	
+	    	
+	    	if (isEmptyEntry) {
+	    		printErrorMessage("Hey! input cannot be empty!");
+	    		return;
+	    	}
+	    	
 	    	if (onlyOneKey) {
-	    		encrypt(textFieldInput, textFieldOutput, textFieldKey1);
-	    		clearMessageError(msgError);
-	    		System.out.println("chama método encrypt para 1 key");
+	    		try {
+	    			encrypt(textFieldInput, textFieldOutput, textFieldKey1);
+	    			printSuccessMessage("Successfully encrypted!");
+	    		} catch (NumberFormatException error) {
+	    			printErrorMessage("key numbers must be integers. " + error.getMessage());
+	    		}
 	    	}
 	    	else if (withTwoKey) {
 	    		System.out.println("chama método ecrypt para 2 keys");
-	    		clearMessageError(msgError);
+	    		btnEncrypt.setText("Encrypted");
+	    		clearErrorMessage(errorMsg);
 	    	}
 	    	else {
 	    		System.out.println("mostra mensage, de error");
-	    		printMessageError(msgError, "Key filders are empty!");
+	    		printErrorMessage("Hey! key filders are empty!");
 	    	}
 		});
 	}
 	
-	public static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) {
+	public static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) 
+			throws NumberFormatException {
 		
 		String input = textInput.getText();
+			
 		int key1 = Integer.parseInt(textKey1.getText());
-		
 		CaesarCipher cipher = new CaesarCipher(key1);
 		String output = cipher.encrypt(input);
-		
 		textOutput.setText(output);
 	}
 	
-	public static void printMessageError(Text msgError, String msg) {
-		msgError.setText(msg);
+	private static void printSuccessMessage(String msg) {
+		successMsg.setText(msg);
+		errorMsg.setText(null);
 	}
 	
-	public static void clearMessageError(Text msgError) {
-		msgError.setText(null);
+	private static void printErrorMessage(String msg) {
+		errorMsg.setText(msg);
+		successMsg.setText(null);
+	}
+	
+	private static void clearErrorMessage(Text errorMsg) {
+		errorMsg.setText(null);
 	}
 	
 }
