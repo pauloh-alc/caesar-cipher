@@ -219,7 +219,7 @@ public class Main extends Application{
 	    	}
 	    	
 	    	if (!textFieldKey1.getText().isEmpty() || !textFieldKey2.getText().isEmpty()) {
-	    		printErrorMessage("Hey dude! You do not need to provide keys for decrypt!");
+	    		printErrorMessage("You do not need to provide keys!");
 	    		return;
 	    	}
 			
@@ -228,7 +228,8 @@ public class Main extends Application{
 				printSuccessMessage("Successfully decrypted!");
 			}
 			else {
-				System.out.println("chama decrypt com key-2");
+				decryptTwoKeys(textFieldInput, textFieldOutput);
+				printSuccessMessage("Successfully decrypted with two keys!");
 			}
 		});
 	}
@@ -273,6 +274,21 @@ public class Main extends Application{
 		
 		String input = textInput.getText();
 		String output = cipher.decrypt(input);
+		
+		textOutput.setText(output);
+		
+		alphabet.setText(null);
+		shifetedAlphabet1.setText(null);
+		shifetedAlphabet2.setText(null);
+	}
+	
+	private static void decryptTwoKeys (TextField textInput, TextField textOutput) {
+		
+		CaesarCipher cipher = new CaesarCipher();
+		cipher.setAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		
+		String input = textInput.getText();
+		String output = cipher.decryptTwoKeys(input);
 		
 		textOutput.setText(output);
 		
