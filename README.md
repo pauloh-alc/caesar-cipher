@@ -2,6 +2,8 @@
 
 Cryptography: keeping Information Secret. Implementing and breaking the Caesar Cipher, with 1 or 2 keys.
 
+Vídeo do projeto e explicações sobre os commits [link](https://youtu.be/ccdWr4sus-g)
+
 ![Screenshot](img/caesar-cipher.png)
 
 ## What is the Caesar Cipher? ️
@@ -54,7 +56,10 @@ Follow the model: [commit-style](https://commit.style/)
 
 ## Code working
 
-![Screenshot](img/code-working.png)
+![Screenshot](img/caesar-cipher-1.png)
+![Screenshot](img/caesar-cipher-2.png)
+![Screenshot](img/caesar-cipher-3.png)
+![Screenshot](img/caesar-cipher-4.png)
 
 ## License
 
