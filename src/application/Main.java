@@ -178,17 +178,21 @@ public class Main extends Application{
 	    			else
 	    				encrypt(textFieldInput, textFieldOutput, textFieldKey2);
 	    			printSuccessMessage("Successfully encrypted!");
-	    		} catch (NumberFormatException error) {
-	    			printErrorMessage("key numbers must be integers. " + error.getMessage());
-	    		}
+	    		} catch (NumberFormatException error1) {
+	    			printErrorMessage("key numbers must be integers. " + error1.getMessage());
+	    		} catch (IllegalArgumentException error2) {
+					printErrorMessage(error2.getMessage());
+				}
 	    	}
 	    	else if (withTwoKey) {
 	    		try {
 		    		encrypt(textFieldInput, textFieldOutput, textFieldKey1, textFieldKey2);
 	    			printSuccessMessage("Successfully encrypted with two keys!");
-	    		} catch (NumberFormatException error) {
-	    			printErrorMessage("key numbers must be integers. " + error.getMessage());
-	    		}
+	    		} catch (NumberFormatException error1) {
+	    			printErrorMessage("key numbers must be integers. " + error1.getMessage());
+		    	} catch (IllegalArgumentException error2) {
+					printErrorMessage(error2.getMessage());
+				}
 	    	}
 	    	else {
 	    		printErrorMessage("Hey! key filders are empty!");
@@ -197,12 +201,12 @@ public class Main extends Application{
 	}
 	
 	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1) 
-			throws NumberFormatException {
+			throws NumberFormatException, IllegalArgumentException {
 		
 		String input = textInput.getText();
 			
 		int key1 = Integer.parseInt(textKey1.getText());
-	
+		
 		CaesarCipher cipher = new CaesarCipher(key1);
 		String output = cipher.encrypt(input);
 		textOutput.setText(output);
@@ -213,7 +217,7 @@ public class Main extends Application{
 	}
 	
 	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1, TextField textKey2) 
-			throws NumberFormatException {
+			throws NumberFormatException, IllegalArgumentException {
 		
 		String input = textInput.getText();
 			

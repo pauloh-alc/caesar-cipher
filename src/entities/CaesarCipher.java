@@ -8,15 +8,15 @@ public class CaesarCipher {
 	private int key1;
 	private int key2;
 	
-	public CaesarCipher(int key1) {
+	public CaesarCipher(int key1) throws IllegalArgumentException {
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		this.key1 = key1;
+		setKey1(key1);
 		shiftedAlphabet1 = generateShiftedAlphabet(key1);
 	}
 	
 	public CaesarCipher(int key1, int key2) {
 		this(key1);
-		this.key2 = key2;
+		setKey2(key2);
 		shiftedAlphabet2 = generateShiftedAlphabet(key2);
 	}
 	
@@ -41,7 +41,10 @@ public class CaesarCipher {
 	}
 
 	public void setKey1(int key1) {
-		this.key1 = key1;
+		if (key1 > 0 && key1 < 26)
+			this.key1 = key1;
+		else 
+			throw new IllegalArgumentException("Invalid informed key-1");
 	}
 
 	public int getKey2() {
@@ -49,7 +52,10 @@ public class CaesarCipher {
 	}
 
 	public void setKey2(int key2) {
-		this.key2 = key2;
+		if (key2 > 0 && key2 < 26)
+			this.key2 = key2;
+		else 
+			throw new IllegalArgumentException("Invalid informed key-2");
 	}
 	
 	// Main Methods:
