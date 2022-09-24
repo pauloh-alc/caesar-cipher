@@ -46,6 +46,7 @@ public class Main extends Application{
 		
 		setOnActionButtonEncrypt(grid);  
 		setOnActionButtonDecrypt(grid);
+		setOnActionButtonClear(grid);
 		
 		Scene scene = new Scene(border, 550, 390);
 		primaryStage.setScene(scene);
@@ -93,7 +94,8 @@ public class Main extends Application{
 	    textFieldKey2.setMaxWidth(40);
 	
 	    Button buttonEncrypt = new Button("Encrypt"); 
-	    Button buttonDecrypt = new Button("Decrypt");  
+	    Button buttonDecrypt = new Button("Decrypt"); 
+	    Button buttonClear = new Button("Clear");  
 	  
 	    GridPane gridPane = new GridPane();    
 	 
@@ -139,6 +141,9 @@ public class Main extends Application{
 	    gridPane.add(alphabet, 1, 2);
 	    gridPane.add(shifetedAlphabet1, 1, 3);
 	    gridPane.add(shifetedAlphabet2, 1, 4);
+	    
+	    gridPane.add(buttonClear, 1, 5);
+	    buttonClear.setTranslateX(100);
 	    
 	    return gridPane;
 	}
@@ -202,6 +207,7 @@ public class Main extends Application{
 	}
 	
 	private static void setOnActionButtonDecrypt(GridPane grid) {
+		
 		TextField textFieldInput = (TextField) grid.getChildren().get(1);
 		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
 		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
@@ -247,7 +253,7 @@ public class Main extends Application{
 		
 		alphabet.setText("A - " + cipher.getAlphabet());
 		shifetedAlphabet1.setText("1 - " + cipher.getShiftedAlphabet1().toUpperCase());
-		shifetedAlphabet2.setText(null);
+		shifetedAlphabet2.setText("");
 	}
 	
 	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1, TextField textKey2) 
@@ -277,9 +283,9 @@ public class Main extends Application{
 		
 		textOutput.setText(output);
 		
-		alphabet.setText(null);
-		shifetedAlphabet1.setText(null);
-		shifetedAlphabet2.setText(null);
+		alphabet.setText("");
+		shifetedAlphabet1.setText("");
+		shifetedAlphabet2.setText("");
 	}
 	
 	private static void decryptTwoKeys (TextField textInput, TextField textOutput) {
@@ -292,19 +298,38 @@ public class Main extends Application{
 		
 		textOutput.setText(output);
 		
-		alphabet.setText(null);
-		shifetedAlphabet1.setText(null);
-		shifetedAlphabet2.setText(null);
+		alphabet.setText("");
+		shifetedAlphabet1.setText("");
+		shifetedAlphabet2.setText("");
 	}
 	
 	private static void printSuccessMessage(String msg) {
 		successMsg.setText(msg);
-		errorMsg.setText(null);
+		errorMsg.setText("");
 	}
 	
 	private static void printErrorMessage(String msg) {
 		errorMsg.setText(msg);
-		successMsg.setText(null);
+		successMsg.setText("");
 	}
 	
+	private static void setOnActionButtonClear(GridPane grid) {
+		
+		TextField textFieldInput = (TextField) grid.getChildren().get(1);
+		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
+		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
+		TextField textFieldKey2 = (TextField) grid.getChildren().get(7);
+		RadioButton key1RadioBox = (RadioButton) grid.getChildren().get(12);
+		Button btnClear = (Button) grid.getChildren().get(17);
+		
+		btnClear.setOnAction((ActionEvent e) -> {
+		    	textFieldKey1.setText("");
+		    	textFieldKey2.setText("");
+		    	textFieldInput.setText("");
+		    	textFieldOutput.setText("");
+		    	key1RadioBox.setSelected(true);
+		    	errorMsg.setText("");
+		    	successMsg.setText("");
+		});
+	}
 }
