@@ -43,7 +43,7 @@ public class Main extends Application{
 		
 		setOnActionButtonEncrypt(grid);  
 		
-		Scene scene = new Scene(border, 550, 330);
+		Scene scene = new Scene(border, 550, 390);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Caesar Cipher");
@@ -96,8 +96,8 @@ public class Main extends Application{
 	    gridPane.setMinSize(400, 210); 
 	    gridPane.setPadding(new Insets(10, 10, 10, 10)); 
 	  
-	    gridPane.setVgap(5); 
-	    gridPane.setHgap(5);       
+	    gridPane.setVgap(15); 
+	    gridPane.setHgap(15);       
 	  
 	    gridPane.setAlignment(Pos.CENTER); 
 	   
