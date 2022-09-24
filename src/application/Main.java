@@ -203,15 +203,29 @@ public class Main extends Application{
 	
 	private static void setOnActionButtonDecrypt(GridPane grid) {
 		TextField textFieldInput = (TextField) grid.getChildren().get(1);
+		TextField textFieldOutput = (TextField) grid.getChildren().get(3);
+		TextField textFieldKey1 = (TextField) grid.getChildren().get(5);
+		TextField textFieldKey2 = (TextField) grid.getChildren().get(7);
 		RadioButton radioBoxKey1 = (RadioButton) grid.getChildren().get(12);
-		RadioButton radioBoxKey2 = (RadioButton) grid.getChildren().get(13);
 		Button btnDecrypt = (Button) grid.getChildren().get(9);
 		
 		btnDecrypt.setOnAction((ActionEvent e) -> {
 			boolean oneKey = radioBoxKey1.isSelected();
+			boolean isEmptyEntry = textFieldInput.getText().isEmpty(); 
+	    
+	    	if (isEmptyEntry) {
+	    		printErrorMessage("Hey! input cannot be empty!");
+	    		return;
+	    	}
+	    	
+	    	if (!textFieldKey1.getText().isEmpty() || !textFieldKey2.getText().isEmpty()) {
+	    		printErrorMessage("Hey dude! You do not need to provide keys for decrypt!");
+	    		return;
+	    	}
 			
 			if (oneKey) {
-				System.out.println("chama decrypt com key-1");
+				decryptOneKey(textFieldInput, textFieldOutput);
+				printSuccessMessage("Successfully decrypted!");
 			}
 			else {
 				System.out.println("chama decrypt com key-2");
@@ -250,6 +264,21 @@ public class Main extends Application{
 		alphabet.setText("A - " + cipher.getAlphabet());
 		shifetedAlphabet1.setText("1 - " + cipher.getShiftedAlphabet1().toUpperCase());
 		shifetedAlphabet2.setText("2 - " + cipher.getShiftedAlphabet2().toUpperCase());
+	}
+	
+	private static void decryptOneKey (TextField textInput, TextField textOutput) {
+		
+		CaesarCipher cipher = new CaesarCipher();
+		cipher.setAlphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		
+		String input = textInput.getText();
+		String output = cipher.decrypt(input);
+		
+		textOutput.setText(output);
+		
+		alphabet.setText(null);
+		shifetedAlphabet1.setText(null);
+		shifetedAlphabet2.setText(null);
 	}
 	
 	private static void printSuccessMessage(String msg) {

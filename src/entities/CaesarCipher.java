@@ -8,6 +8,10 @@ public class CaesarCipher {
 	private int key1;
 	private int key2;
 	
+	public CaesarCipher() {
+		
+	}
+	
 	public CaesarCipher(int key1) throws IllegalArgumentException {
 		alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		setKey1(key1);
