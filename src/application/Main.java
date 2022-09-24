@@ -45,6 +45,7 @@ public class Main extends Application{
 		border.setCenter(grid);
 		
 		setOnActionButtonEncrypt(grid);  
+		setOnActionButtonDecrypt(grid);
 		
 		Scene scene = new Scene(border, 550, 390);
 		primaryStage.setScene(scene);
@@ -197,6 +198,24 @@ public class Main extends Application{
 	    	else {
 	    		printErrorMessage("Hey! key filders are empty!");
 	    	}
+		});
+	}
+	
+	private static void setOnActionButtonDecrypt(GridPane grid) {
+		TextField textFieldInput = (TextField) grid.getChildren().get(1);
+		RadioButton radioBoxKey1 = (RadioButton) grid.getChildren().get(12);
+		RadioButton radioBoxKey2 = (RadioButton) grid.getChildren().get(13);
+		Button btnDecrypt = (Button) grid.getChildren().get(9);
+		
+		btnDecrypt.setOnAction((ActionEvent e) -> {
+			boolean oneKey = radioBoxKey1.isSelected();
+			
+			if (oneKey) {
+				System.out.println("chama decrypt com key-1");
+			}
+			else {
+				System.out.println("chama decrypt com key-2");
+			}
 		});
 	}
 	
