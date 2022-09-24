@@ -26,6 +26,9 @@ public class Main extends Application{
 	
 	private static Text errorMsg = new Text();
 	private static Text successMsg = new Text();
+	private static Text alphabet = new Text();
+	private static Text shifetedAlphabet1 = new Text();
+	private static Text shifetedAlphabet2 = new Text();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -87,7 +90,7 @@ public class Main extends Application{
 	    textFieldInput.setMinWidth(400);
 	    textFieldKey1.setMaxWidth(40);
 	    textFieldKey2.setMaxWidth(40);
-	    
+	
 	    Button buttonEncrypt = new Button("Encrypt"); 
 	    Button buttonDecrypt = new Button("Decrypt");  
 	  
@@ -127,6 +130,14 @@ public class Main extends Application{
         key1RadioBox.setSelected(true);
 	    gridPane.add(key1RadioBox, 0, 4);
 	    gridPane.add(key2RadioBox, 1, 4);
+	    
+	    alphabet.setTranslateX(120);
+	    shifetedAlphabet1.setTranslateX(120);
+	    shifetedAlphabet2.setTranslateX(120);
+	    
+	    gridPane.add(alphabet, 1, 2);
+	    gridPane.add(shifetedAlphabet1, 1, 3);
+	    gridPane.add(shifetedAlphabet2, 1, 4);
 	    
 	    return gridPane;
 	}
@@ -195,6 +206,10 @@ public class Main extends Application{
 		CaesarCipher cipher = new CaesarCipher(key1);
 		String output = cipher.encrypt(input);
 		textOutput.setText(output);
+		
+		alphabet.setText("A - " + cipher.getAlphabet());
+		shifetedAlphabet1.setText("1 - " + cipher.getShiftedAlphabet1().toUpperCase());
+		shifetedAlphabet2.setText(null);
 	}
 	
 	private static void encrypt (TextField textInput, TextField textOutput, TextField textKey1, TextField textKey2) 
@@ -208,6 +223,10 @@ public class Main extends Application{
 		CaesarCipher cipher = new CaesarCipher(key1, key2);
 		String output = cipher.encryptTwoKeys(input);
 		textOutput.setText(output);
+		
+		alphabet.setText("A - " + cipher.getAlphabet());
+		shifetedAlphabet1.setText("1 - " + cipher.getShiftedAlphabet1().toUpperCase());
+		shifetedAlphabet2.setText("2 - " + cipher.getShiftedAlphabet2().toUpperCase());
 	}
 	
 	private static void printSuccessMessage(String msg) {
