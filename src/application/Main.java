@@ -328,6 +328,9 @@ public class Main extends Application{
 		    	textFieldInput.setText("");
 		    	textFieldOutput.setText("");
 		    	key1RadioBox.setSelected(true);
+		    	alphabet.setText("");
+		    	shifetedAlphabet1.setText("");
+		    	shifetedAlphabet2.setText("");
 		    	errorMsg.setText("");
 		    	successMsg.setText("");
 		});
